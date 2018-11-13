@@ -41,7 +41,7 @@ for i in range(598, 600, 1):
     st_i = part_i.index_pointers[st]
 
     # check that all the indices are not null
-    if np.isnan(indices_at_i).sum() > 0:
+    if np.isnan(st_i).sum() > 0:
         print(i)
 
     pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_i.principal_axes_vectors)
