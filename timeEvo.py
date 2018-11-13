@@ -5,10 +5,10 @@ import rockstar_analysis
 import matplotlib.pyplot as plt
 import os
 
-file_path = "/mnt/home/npanithanpaisal/darkpy/figs"
+file_path = "/mnt/home/npanithanpaisal/darkpy/figs/"
 directory = os.path.dirname(file_path)
-#if not os.path.exists(directory):
-os.makedirs(directory)
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
 def make_fig(pos_pa, i):
     fig = plt.figure(figsize=(10,8))
