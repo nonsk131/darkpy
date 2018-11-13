@@ -30,19 +30,22 @@ st = np.loadtxt('one-stream-ids.txt', dtype=int)
 pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
 make_fig(pos_pa600, 600)
 
-for i in range(595, 600, 1):
-    # read in stars at snapshot i
-    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
-                                     assign_orbit=True,
-                                     simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
+for i in range(250, 600, 1):
+    try:
+        # read in stars at snapshot i
+        part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
+                                         assign_orbit=True,
+                                         simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 
-    # read star index pointer
-    gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
-    st_i = part_i.index_pointers[st]
+        # read star index pointer
+        gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
+        st_i = part_i.index_pointers[st]
 
-    # check that all the indices are not null
-    if np.isnan(st_i).sum() > 0:
-        print(i)
+        # check that all the indices are not null
+        if np.isnan(st_i).sum() > 0:
+            print(i)
 
-    pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_i.principal_axes_vectors)
-    make_fig(pos_pa_i, i)
+        pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_i.principal_axes_vectors)
+        make_fig(pos_pa_i, i)
+    except:
+        continue
