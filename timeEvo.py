@@ -30,7 +30,7 @@ st = np.loadtxt('one-stream-ids.txt', dtype=int)
 pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
 make_fig(pos_pa600, 600)
 
-for i in range(598, 600, 1):
+for i in range(595, 600, 1):
     # read in stars at snapshot i
     part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
                                      assign_orbit=True,
