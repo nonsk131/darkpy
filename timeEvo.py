@@ -5,7 +5,7 @@ import rockstar_analysis
 import matplotlib.pyplot as plt
 
 def make_fig(pos_pa, i):
-    fig = plt.figure(figsize=10,8))
+    fig = plt.figure(figsize=(10,8))
     ax = fig.add_subplot(1,1,1)
     ax.scatter(pos_pa[:,0], pos_pa[:,2], s=4, c='black', alpha=0.3)
     ax[0].set_xlim((-80, 80))
