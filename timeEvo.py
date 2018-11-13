@@ -15,7 +15,7 @@ def make_fig(pos_pa, i):
     fig.savefig('/figs/xz_snap{}.png'.format(i), dpi=300)
 
 # read in stars (no dark matter) at z = 0, snapshot 600
-part_600 = gizmo.io.Read.read_snapshots(['star'], snapshot_value_kind='index', snapshot_value=600, assign_principal_axes=True,
+part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_principal_axes=True,
                                  assign_orbit=True,
                                  simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
@@ -27,7 +27,7 @@ for i in range(400, 600, 1):
     try:
         print("processing snapshpt {}".format(i))
         # read in stars at snapshot i
-        part_i = gizmo.io.Read.read_snapshots(['star'], snapshot_value_kind='index', snapshot_value=i, assign_principal_axes=True,
+        part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
                                          assign_orbit=True,
                                          simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 
