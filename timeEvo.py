@@ -18,7 +18,7 @@ def make_fig(pos_pa, i):
     ax.set_ylim((-80, 80))
     ax.set_xlabel('x [kpc]')
     ax.set_ylabel('z [kpc]')
-    fig.savefig('figs/xz_snap{}.png'.format(i), dpi=300)
+    fig.savefig('/mnt/home/npanithanpaisal/darkpy/figs/xz_snap{}.png'.format(i), dpi=300)
 
 # read in stars (no dark matter) at z = 0, snapshot 600
 part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_principal_axes=True,
