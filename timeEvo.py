@@ -37,7 +37,7 @@ for i in range(598, 600, 1):
                                      simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 
     # read star index pointer
-    gizmo.track.ParticleIndexPointer.io_pointers(part_i)
+    gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
     st_i = part_i.index_pointers[st]
 
     # check that all the indices are not null
