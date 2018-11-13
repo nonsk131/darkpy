@@ -18,10 +18,10 @@ def make_fig(pos_pa, i):
 part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_principal_axes=True,
                                  assign_orbit=True,
                                  simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
-pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
-make_fig(pos_pa600, 600)
 # read in indices of stars in the stream
 st = np.loadtxt('one-stream-ids.txt', dtype=int)
+pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
+make_fig(pos_pa600, 600)
 
 for i in range(400, 600, 1):
     try:
