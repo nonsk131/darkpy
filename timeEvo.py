@@ -2,6 +2,7 @@ import numpy as np
 import gizmo_analysis as gizmo
 import wutilities as ut
 import rockstar_analysis
+import matplotlib.pyplot as plt
 
 def make_fig(pos_pa, i):
     fig = plt.figure(figsize=10,8))
@@ -24,6 +25,7 @@ st = np.loadtxt('one-stream-ids.txt', dtype=int)
 
 for i in range(400, 600, 1):
     try:
+        print("processing snapshpt {}".format(i))
         # read in stars at snapshot i
         part_i = gizmo.io.Read.read_snapshots(['star'], snapshot_value_kind='index', snapshot_value=i, assign_principal_axes=True,
                                          assign_orbit=True,
