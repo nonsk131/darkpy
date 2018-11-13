@@ -3,6 +3,12 @@ import gizmo_analysis as gizmo
 import wutilities as ut
 import rockstar_analysis
 import matplotlib.pyplot as plt
+import os
+
+file_path = "/mnt/home/npanithanpaisal/darkpy/figs"
+directory = os.path.dirname(file_path)
+if not os.path.exists(directory):
+    os.makedirs(directory)
 
 def make_fig(pos_pa, i):
     fig = plt.figure(figsize=(10,8))
@@ -12,7 +18,7 @@ def make_fig(pos_pa, i):
     ax.set_ylim((-80, 80))
     ax.set_xlabel('x [kpc]')
     ax.set_ylabel('z [kpc]')
-    fig.savefig('/figs/xz_snap{}.png'.format(i), dpi=300)
+    fig.savefig('figs/xz_snap{}.png'.format(i), dpi=300)
 
 # read in stars (no dark matter) at z = 0, snapshot 600
 part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_principal_axes=True,
