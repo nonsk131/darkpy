@@ -8,10 +8,10 @@ def make_fig(pos_pa, i):
     fig = plt.figure(figsize=(10,8))
     ax = fig.add_subplot(1,1,1)
     ax.scatter(pos_pa[:,0], pos_pa[:,2], s=4, c='black', alpha=0.3)
-    ax[0].set_xlim((-80, 80))
-    ax[0].set_ylim((-80, 80))
-    ax[0].set_xlabel('x [kpc]')
-    ax[0].set_ylabel('z [kpc]')
+    ax.set_xlim((-80, 80))
+    ax.set_ylim((-80, 80))
+    ax.set_xlabel('x [kpc]')
+    ax.set_ylabel('z [kpc]')
     fig.savefig('/figs/xz_snap{}.png'.format(i), dpi=300)
 
 # read in stars (no dark matter) at z = 0, snapshot 600
