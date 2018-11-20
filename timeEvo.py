@@ -38,7 +38,7 @@ def compute_dist(pos, pos_hal, hal, threshold = 2):
             d_star_hal = np.sqrt(((d_hal - d_star)**2).sum(axis=1))
             if np.min(d_star_hal) < threshold:
                 count += 1
-                halo_ind.append(hal['id'][i])
+                halo_ind.append(hal['tid'][i])
 
     return count, np.array(halo_ind)
 
@@ -59,7 +59,6 @@ pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distanc
 pos_host600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
-print(list(hal_600.keys()))
 count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], hal_600)
 print(count, interacting_hal_id)
 
