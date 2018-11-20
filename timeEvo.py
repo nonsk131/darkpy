@@ -28,10 +28,11 @@ part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_principal
                                  simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 # read in indices of stars in the stream
 st = np.loadtxt('one-stream-ids.txt', dtype=int)
-pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
+#pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distance'][st],part_600.principal_axes_vectors)
+pos_pa600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
-for i in range(250, 600, 1):
+for i in range(590, 600, 1):
     try:
         # read in stars at snapshot i
         part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
@@ -46,7 +47,8 @@ for i in range(250, 600, 1):
         if np.isnan(st_i).sum() > 0:
             print(i)
 
-        pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_i.principal_axes_vectors)
+        # pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_i.principal_axes_vectors)
+        pos_pa_i = part_i['star']['host.distance'][st_i]
         make_fig(pos_pa_i, i)
     except:
         continue
