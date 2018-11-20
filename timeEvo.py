@@ -59,7 +59,7 @@ pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distanc
 pos_host600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
-list(hal_600.keys())
+print(list(hal_600.keys()))
 count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], hal_600)
 print(count, interacting_hal_id)
 
