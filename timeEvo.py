@@ -83,6 +83,7 @@ count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], 
 halo_indices, mindist_array = compute_dist_old(hal_600['host.distance'], pos_host600)
 print(len(hal_600['host.distance']))
 print(count, interacting_hal_id)
+print(len(halo_indices))
 
 for i in range(598, 600, 1):
     try:
