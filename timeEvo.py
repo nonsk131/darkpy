@@ -79,7 +79,7 @@ pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distanc
 pos_host600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
-hal_test = rockstar.io.IO.read_catalogs('redshift', 0)
+hal_test = rockstar.io.IO.read_catalogs('redshift', 0, simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 
 count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], hal_600)
 halo_indices, mindist_array = compute_dist_old(hal_600['host.distance'], pos_host600)
