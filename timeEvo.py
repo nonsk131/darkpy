@@ -66,7 +66,7 @@ def compute_dist_old(pos_pa_hal, pos_pa, threshold = 2):
 #-------------------------------------------------------------------------------
 
 # read in merger tree
-halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100', assign_host=True)
+halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100', assign_host=False)
 hal_600 = rockstar.io.IO.get_catalog_from_tree(halt, 600)
 
 # read in stars (no dark matter) at z = 0, snapshot 600
