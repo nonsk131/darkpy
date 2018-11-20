@@ -33,7 +33,7 @@ def compute_dist(pos, pos_hal, hal, threshold = 2):
             continue
 
         else:
-            d_hal = np.tile(pos_hal[index], len(pos)).reshape((len(pos),3))
+            d_hal = np.tile(pos_hal[i], len(pos)).reshape((len(pos),3))
             d_star = pos
             d_star_hal = np.sqrt(((d_hal - d_star)**2).sum(axis=1))
             if np.min(d_star_hal) < threshold:
