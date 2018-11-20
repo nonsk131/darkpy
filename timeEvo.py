@@ -79,9 +79,16 @@ pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distanc
 pos_host600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
+hal_test = rockstar.io.IO.read_catalogs('redshift', 0)
+
 count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], hal_600)
 halo_indices, mindist_array = compute_dist_old(hal_600['host.distance'], pos_host600)
 print(len(hal_600['host.distance']))
+print(count, interacting_hal_id)
+print(len(halo_indices))
+count, interacting_hal_id = compute_dist(pos_host600, hal_test['host.distance'], hal_test)
+halo_indices, mindist_array = compute_dist_old(hal_test['host.distance'], pos_host600)
+print(len(hal_test['host.distance']))
 print(count, interacting_hal_id)
 print(len(halo_indices))
 
