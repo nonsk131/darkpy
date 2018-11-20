@@ -5,7 +5,7 @@ import rockstar_analysis as rockstar
 import matplotlib.pyplot as plt
 import os
 
-file_path = "/mnt/home/npanithanpaisal/darkpy/figs/"
+file_path = "/mnt/home/npanithanpaisal/darkpy/figs_halo_track/"
 directory = os.path.dirname(file_path)
 if not os.path.exists(directory):
     os.makedirs(directory)
@@ -18,13 +18,13 @@ def make_fig(pos_pa, i):
     ax.set_ylim((-80, 80))
     ax.set_xlabel('x [kpc]')
     ax.set_ylabel('z [kpc]')
-    fig.savefig('/mnt/home/npanithanpaisal/darkpy/figs/xz_snap{}.png'.format(i), dpi=300)
+    fig.savefig('/mnt/home/npanithanpaisal/darkpy/figs_halo_track/xz_snap{}.png'.format(i), dpi=300)
     print('xz_snap{}.png has been created'.format(i))
     plt.close(fig)
 
 # pos = part['star']['host.distance'][st]
 # pos_halo = hal['host.distance']
-def compute_dist(pos, pos_halo, hal, threshold = 2):
+def compute_dist(pos, pos_hal, hal, threshold = 2):
     count = 0
     halo_ind = []
     for i in range(len(pos_hal)):
