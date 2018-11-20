@@ -79,16 +79,11 @@ pos_pa600 = ut.coordinate.get_coordinates_rotated(part_600['star']['host.distanc
 pos_host600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
-hal_test = rockstar.io.IO.read_catalogs('redshift', 0, simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
+#hal_test = rockstar.io.IO.read_catalogs('redshift', 0, simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 
 count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], hal_600)
 halo_indices, mindist_array = compute_dist_old(hal_600['host.distance'], pos_host600)
 print(len(hal_600['host.distance']))
-print(count, interacting_hal_id)
-print(len(halo_indices))
-count, interacting_hal_id = compute_dist(pos_host600, hal_test['host.distance'], hal_test)
-halo_indices, mindist_array = compute_dist_old(hal_test['host.distance'], pos_host600)
-print(len(hal_test['host.distance']))
 print(count, interacting_hal_id)
 print(len(halo_indices))
 
@@ -98,7 +93,7 @@ for i in range(598, 600, 1):
         part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
                                          assign_orbit=True,
                                          simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
-        hal_i = rockstar.io.IO.get_catalog_from_tree(halt, 600)
+        hal_i = rockstar.io.IO.get_catalog_from_tree(halt, i)
 
         # read star index pointer
         gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
@@ -111,5 +106,9 @@ for i in range(598, 600, 1):
         pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.principal_axes_vectors)
         pos_host_i = part_i['star']['host.distance'][st_i]
         make_fig(pos_pa_i, i)
+
+        count, interacting_hal_id = compute_dist(pos_host_i, hal_i['host.distance'], hal_i)
+        print(len(hal_600['host.distance']))
+        print(count, interacting_hal_id)
     except:
         continue
