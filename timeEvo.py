@@ -87,7 +87,9 @@ print(len(hal_600['host.distance']))
 print(count, interacting_hal_id)
 print(len(halo_indices))
 
-for i in range(598, 600, 1):
+c = np.zeros(601)
+c[600] = count
+for i in range(250, 600, 1):
     try:
         # read in stars at snapshot i
         part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
@@ -108,7 +110,9 @@ for i in range(598, 600, 1):
         make_fig(pos_pa_i, i)
 
         count, interacting_hal_id = compute_dist(pos_host_i, hal_i['host.distance'], hal_i)
+        c[i] = count
         print(len(hal_600['host.distance']))
         print(count, interacting_hal_id)
     except:
         continue
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/count.txt', c)
