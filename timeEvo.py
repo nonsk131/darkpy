@@ -42,6 +42,26 @@ def compute_dist(pos, pos_hal, hal, threshold = 2):
 
     return count, np.array(halo_ind)
 
+def compute_dist_old(pos_pa_hal, pos_pa, threshold = 2):
+    encounter = []
+    dist_list = []
+    for i in range(len(pos_pa_hal)):
+        if np.absolute(pos_pa_hal[i,0]) > 80 or np.absolute(pos_pa_hal[i,1]) > 80 \
+        or np.absolute(pos_pa_hal[i,2]) > 80:
+            continue
+        else:
+            mindist = np.infty
+            for j in range(len(pos_pa)):
+                d_sq = (pos_pa_hal[i,0]-pos_pa[j,0])**2 + (pos_pa_hal[i,1]-pos_pa[j,1])**2 + \
+                (pos_pa_hal[i,2]-pos_pa[j,2])**2
+                if d_sq < mindist:
+                    mindist = d_sq
+
+            if mindist < threshold**2:
+                encounter.append(i)
+                dist_list.append(mindist)
+    return np.array(encounter), np.sqrt(np.array(dist_list))
+
 
 #-------------------------------------------------------------------------------
 
@@ -60,9 +80,11 @@ pos_host600 = part_600['star']['host.distance'][st]
 make_fig(pos_pa600, 600)
 
 count, interacting_hal_id = compute_dist(pos_host600, hal_600['host.distance'], hal_600)
+halo_indices, mindist_array = compute_dist_old(hal_600['host.distance'], pos_host600)
+print(len(hal_600['host.distance']))
 print(count, interacting_hal_id)
 
-for i in range(590, 600, 1):
+for i in range(598, 600, 1):
     try:
         # read in stars at snapshot i
         part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
