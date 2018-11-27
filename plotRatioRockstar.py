@@ -14,4 +14,4 @@ for i in range(1,601,1):
     n_tree[i] = len(hal_i_tree['host.distance'])
     n_cata[i] = len(hal_i_cata['host.distance'])
 
-np.savetxt('/mnt/home/npanithanpaisal/darkpy/ratio.txt', np.column_stack((n_tree, n_cata, n_tree/n_cata)), header='halos from tree, halos from read_catalogs, ratio')
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/ratio.txt', np.column_stack((n_tree.astype(int), n_cata.astype(int), n_tree/n_cata)), header='halos from tree, halos from read_catalogs, ratio')
