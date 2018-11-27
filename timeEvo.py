@@ -89,7 +89,7 @@ make_fig(pos_pa600, 600, pos_pa600_hal[interacting_hal_id], count)
 # c is an array that keep track of how many interacting halo are there as a function of index
 c = np.zeros(601)
 c[600] = count
-for i in range(595, 600, 1):
+for i in range(250, 600, 1):
     try:
         # read in stars at snapshot i
         part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
