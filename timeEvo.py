@@ -27,6 +27,9 @@ def make_fig(pos_pa, i, pos_pa_hal, count):
 # pos = part['star']['host.distance'][st]
 # pos_halo = hal['host.distance']
 def compute_dist(pos, pos_hal, hal, threshold = 2):
+
+    print('printing first 10 halo id-------------------------------')
+    print(hal['id'][:10])
     count = 0
     halo_ind = []
     for i in range(len(pos_hal)):
