@@ -43,7 +43,7 @@ def compute_dist(pos, pos_hal, hal, threshold = 2):
             d_star_hal = np.sqrt(((d_hal - d_star)**2).sum(axis=1))
             if np.min(d_star_hal) < threshold:
                 count += 1
-                halo_ind.append(hal['id'][i])
+                halo_ind.append(i)
 
     return count, np.array(halo_ind)
 
