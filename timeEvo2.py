@@ -96,6 +96,8 @@ for i in range(600, 601, 1):
             # going backward
             prog_index = halt['progenitor.main.index'][jj]
             # going forward
+            des_index = halt['descendant.index'][jj]
+
             n += 1
 
         #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
