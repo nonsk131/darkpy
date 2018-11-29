@@ -4,13 +4,9 @@ import rockstar_analysis as rockstar
 import matplotlib.pyplot as plt
 
 halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
-n_tree = np.zeros(601)
-n_cata = np.zeros(601)
-n_tree[0] = 1
-n_cata[0] = 1
-n_tree[1] = 1
-n_cata[1] = 1
-for i in range(2,601,1):
+n_tree = np.full(601,1)
+n_cata = np.full(601,1)
+for i in range(250,601,1):
     print('doing index {}'.format(i))
     hal_i_tree = rockstar.io.IO.get_catalog_from_tree(halt, i)
     hal_i_cata = rockstar.io.IO.read_catalogs('index', i, simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
