@@ -94,7 +94,7 @@ for i in range(600, 601, 1):
         n = 1
         while n <= N:
             # going backward
-            prog_index = halt['progenitor.main.index'][hal_i_ind[]]
+            prog_index = halt['progenitor.main.index'][jj]
             # going forward
             n += 1
 
