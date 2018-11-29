@@ -86,8 +86,9 @@ for i in range(600, 601, 1):
                 mass.append(halt['mass'][j])
                 all_i.append(j)
 
-        np.savetxt('t.txt', count)
-        break
+        c = np.zeros(2)
+        c[1] = count
+        np.savetxt('/mnt/home/npanithanpaisal/darkpy/t.txt', c)
 
         # track the halos in N previous and N after snapshots
         N = 3
@@ -95,8 +96,10 @@ for i in range(600, 601, 1):
         while n <= N:
             # going backward
             prog_index = halt['progenitor.main.index'][jj]
+            prog_index = prog_index[np.where(prog_index > 0)]
             # going forward
             des_index = halt['descendant.index'][jj]
+            des_index = des_index[np.where(des_index > 0)]
 
             n += 1
 
