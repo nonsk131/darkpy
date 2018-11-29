@@ -2,6 +2,8 @@ import numpy as np
 import gizmo_analysis as gizmo
 import utilities as ut
 import rockstar_analysis as rockstar
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 
@@ -127,4 +129,11 @@ for i in range(600, 601, 1):
 
     #except:
     #    continue
-#np.savetxt('/mnt/home/npanithanpaisal/darkpy/count.txt', c, header='number of interacting halos as a function of index, which is represented by row')
+# save id and masses
+id_mass = np.column_stack((np.array(all_i), np.array(masses)))
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass)
+
+for i in range(250,601,1):
+    name = 'interacting_snap{}.txt'.format(i)
+    path = os.path.join('/mnt/home/npanithanpaisal/darkpy/halos/', name)
+    np.savetxt(path, np.array(indices[i]))
