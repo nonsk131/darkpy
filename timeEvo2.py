@@ -73,7 +73,8 @@ start = 600
 for i in range(start, 601, 1):
     #try:
     # read in stars at snapshot i
-    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i,
+    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
+                                     assign_host_orbits=True,
                                      simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
     hal_i_ind = np.where(halt['snapshot'] == i)[0]
 
