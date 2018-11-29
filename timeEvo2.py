@@ -32,7 +32,7 @@ def make_fig(pos_pa, i, pos_pa_hal, count):
 
 # pos = part['star']['host.distance'][st]
 # pos_halo = hal['host.distance']
-def compute_dist(pos, pos_hal, threshold = 2):
+def compute_dist(pos, pos_hal, threshold = 3):
 
     count = 0
     halo_ind = []
@@ -48,6 +48,7 @@ def compute_dist(pos, pos_hal, threshold = 2):
             if np.min(d_star_hal) < threshold:
                 count += 1
                 halo_ind.append(i)
+                print(np.min(d_star_hal))
 
     return count, np.array(halo_ind)
 
@@ -94,10 +95,6 @@ for i in range(start, 601, 1):
         if j not in all_i:
             masses.append(halt['mass'][j])
             all_i.append(j)
-
-    c = np.zeros(2)
-    c[1] = count
-    np.savetxt('/mnt/home/npanithanpaisal/darkpy/t.txt', c)
 
     # track the halos in N previous and N after snapshots
     N = 3
