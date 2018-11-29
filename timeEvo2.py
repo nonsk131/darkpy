@@ -80,10 +80,18 @@ for i in range(600, 601, 1):
         count, id = compute_dist(pos_pa_i, pos_pa_hal_i)
         for j in id:
             jj = hal_i_ind[j]
-            indices[i].append(jj)
+            if jj not in indices[i]:
+                indices[i].append(jj)
             if jj not in all_i:
                 mass.append(halt['mass'][jj])
                 all_i.append(jj)
+
+        # track the halos in N previous and N after snapshots
+        N = 3
+        n = 1
+        #while n <= N:
+            # going backward
+
 
         print(count)
         print(mass)
@@ -92,4 +100,4 @@ for i in range(600, 601, 1):
 
     except:
         continue
-np.savetxt('/mnt/home/npanithanpaisal/darkpy/count.txt', c, header='number of interacting halos as a function of index, which is represented by row')
+#np.savetxt('/mnt/home/npanithanpaisal/darkpy/count.txt', c, header='number of interacting halos as a function of index, which is represented by row')
