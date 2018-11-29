@@ -5,7 +5,11 @@ import rockstar_analysis as rockstar
 import matplotlib.pyplot as plt
 import os
 
-file_path = "/mnt/home/npanithanpaisal/darkpy/figs/"
+file_path = "/mnt/home/npanithanpaisal/darkpy/figs2/"
+directory = os.path.dirname(file_path)
+if not os.path.exists(directory):
+    os.makedirs(directory)
+file_path = "/mnt/home/npanithanpaisal/darkpy/halos/"
 directory = os.path.dirname(file_path)
 if not os.path.exists(directory):
     os.makedirs(directory)
@@ -26,7 +30,7 @@ def make_fig(pos_pa, i, pos_pa_hal, count):
 
 # pos = part['star']['host.distance'][st]
 # pos_halo = hal['host.distance']
-def compute_dist(pos, pos_hal, hal, threshold = 2):
+def compute_dist(pos, pos_hal, threshold = 2):
 
     count = 0
     halo_ind = []
