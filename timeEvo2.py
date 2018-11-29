@@ -86,7 +86,7 @@ for i in range(600, 601, 1):
                 all_i.append(jj)
 
         print(count)
-        print(indices[600])
+        print(mass)
 
         #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
 
