@@ -78,23 +78,25 @@ for i in range(600, 601, 1):
         pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.principal_axes_vectors)
         pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.principal_axes_vectors)
         count, id = compute_dist(pos_pa_i, pos_pa_hal_i)
-        for j in id:
-            jj = hal_i_ind[j]
-            if jj not in indices[i]:
-                indices[i].append(jj)
-            if jj not in all_i:
-                mass.append(halt['mass'][jj])
-                all_i.append(jj)
+        jj = hal_i_ind[id]
+        for j in jj:
+            if j not in indices[i]:
+                indices[i].append(j)
+            if j not in all_i:
+                mass.append(halt['mass'][j])
+                all_i.append(j)
+
+        np.savetxt('t.txt', count)
+        break
 
         # track the halos in N previous and N after snapshots
         N = 3
         n = 1
-        #while n <= N:
+        while n <= N:
             # going backward
-
-
-        print(count)
-        print(mass)
+            prog_index = halt['progenitor.main.index'][hal_i_ind[]]
+            # going forward
+            n += 1
 
         #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
 
