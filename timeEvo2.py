@@ -72,59 +72,62 @@ st = np.loadtxt('one-stream-ids.txt', dtype=int)
 
 start = 597
 for i in range(start, 601, 1):
+    try:
 
-    # read in stars at snapshot i
-    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
-                                     assign_host_orbits=True,
-                                     simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
-    hal_i_ind = np.where(halt['snapshot'] == i)[0]
+        # read in stars at snapshot i
+        part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
+                                         assign_host_orbits=True,
+                                         simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
+        hal_i_ind = np.where(halt['snapshot'] == i)[0]
 
-    if i < 600:
-        # read star index pointer
-        gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
-        st_i = part_i.index_pointers[st]
-    else:
-        st_i = st
-    pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.host_rotation_tensors[0])
-    pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.host_rotation_tensors[0])
-    count, id = compute_dist(pos_pa_i, pos_pa_hal_i)
-    c[i] = count
-    jj = hal_i_ind[id]
-    for j in jj:
-        if j not in indices[i]:
-            indices[i].append(j)
-        if j not in all_i:
-            masses.append(halt['mass'][j])
-            all_i.append(j)
+        if i < 600:
+            # read star index pointer
+            gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
+            st_i = part_i.index_pointers[st]
+        else:
+            st_i = st
+        pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.host_rotation_tensors[0])
+        pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.host_rotation_tensors[0])
+        count, id = compute_dist(pos_pa_i, pos_pa_hal_i)
+        c[i] = count
+        jj = hal_i_ind[id]
+        for j in jj:
+            if j not in indices[i]:
+                indices[i].append(j)
+            if j not in all_i:
+                masses.append(halt['mass'][j])
+                all_i.append(j)
 
-    # track the halos in N previous and N after snapshots
-    N = 4
-    n = 1
-    prog_index = jj
-    while n <= N:
-        # going backward
-        prog_index = halt['progenitor.main.index'][prog_index]
-        prog_index = prog_index[np.where(prog_index > 0)]
-        for k in prog_index:
-            if k not in indices[i-n]:
-                indices[i-n].append(k)
-        n += 1
+        # track the halos in N previous and N after snapshots
+        N = 4
+        n = 1
+        prog_index = jj
+        while n <= N:
+            # going backward
+            prog_index = halt['progenitor.main.index'][prog_index]
+            prog_index = prog_index[np.where(prog_index > 0)]
+            for k in prog_index:
+                if k not in indices[i-n]:
+                    indices[i-n].append(k)
+            n += 1
 
-    if i + N > 600:
-        N = 600 - i
-    n = 1
-    des_index = jj
-    while n <= N:
-        # going forward
-        des_index = halt['descendant.index'][des_index]
-        des_index = des_index[np.where(des_index > 0)]
-        for k in des_index:
-            if k not in indices[i+n]:
-                indices[i+n].append(k)
-        n += 1
+        if i + N > 600:
+            N = 600 - i
+        n = 1
+        des_index = jj
+        while n <= N:
+            # going forward
+            des_index = halt['descendant.index'][des_index]
+            des_index = des_index[np.where(des_index > 0)]
+            for k in des_index:
+                if k not in indices[i+n]:
+                    indices[i+n].append(k)
+            n += 1
 
 
-        #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
+            #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
+    except:
+        continue
 
 # save id and masses
 id_mass = np.column_stack((np.array(all_i), np.array(masses)))
