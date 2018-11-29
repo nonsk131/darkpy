@@ -1,5 +1,5 @@
 import numpy as np
-import wutilities as ut
+import utilities as ut
 import rockstar_analysis as rockstar
 import matplotlib.pyplot as plt
 
