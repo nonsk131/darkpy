@@ -69,11 +69,11 @@ part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_host_prin
 # read in indices of stars in the stream
 st = np.loadtxt('one-stream-ids.txt', dtype=int)
 
-for i in range(600, 601, 1):
+start = 600
+for i in range(start, 601, 1):
     #try:
     # read in stars at snapshot i
-    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
-                                     assign_host_orbits=True,
+    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i,
                                      simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
     hal_i_ind = np.where(halt['snapshot'] == i)[0]
 
@@ -91,7 +91,7 @@ for i in range(600, 601, 1):
         if j not in indices[i]:
             indices[i].append(j)
         if j not in all_i:
-            mass.append(halt['mass'][j])
+            masses.append(halt['mass'][j])
             all_i.append(j)
 
     c = np.zeros(2)
@@ -133,7 +133,7 @@ for i in range(600, 601, 1):
 id_mass = np.column_stack((np.array(all_i), np.array(masses)))
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass)
 
-for i in range(250,601,1):
+for i in range(start,601,1):
     name = 'interacting_snap{}.txt'.format(i)
     path = os.path.join('/mnt/home/npanithanpaisal/darkpy/halos/', name)
     np.savetxt(path, np.array(indices[i]))
