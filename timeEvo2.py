@@ -49,14 +49,16 @@ def compute_dist(pos, pos_hal, hal, threshold = 2):
 #-------------------------------------------------------------------------------
 # store indices of halos that we have to draw in each snapshot
 indices = {k: [] for k in range(1,601,1)}
+masses = []
+all_i = []
 
 # read in merger tree using the new merger tree
 halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/',
     rockstar_directory='halo/rockstar_dm_new')
 
 # read in stars (no dark matter) at z = 0, snapshot 600 just to get the principal axis
-part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_principal_axes=True,
-                                 assign_orbit=True,
+part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_host_principal_axes=True,
+                                 assign_host_orbits=True,
                                  simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
 # read in indices of stars in the stream
 st = np.loadtxt('one-stream-ids.txt', dtype=int)
@@ -64,8 +66,8 @@ st = np.loadtxt('one-stream-ids.txt', dtype=int)
 for i in range(600, 601, 1):
     try:
         # read in stars at snapshot i
-        part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_principal_axes=True,
-                                         assign_orbit=True,
+        part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
+                                         assign_host_orbits=True,
                                          simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
         hal_i_ind = np.where(halt['snapshot'] == i)[0]
 
@@ -77,7 +79,11 @@ for i in range(600, 601, 1):
         pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.principal_axes_vectors)
         count, id = compute_dist(pos_pa_i, pos_pa_hal_i)
         for j in id:
-            indices[i].append(hal_i_ind[j])
+            jj = hal_i_ind[j]
+            indices[i].append(jj)
+            if jj not in all_i:
+                mass.append(halt['mass'][jj])
+                all_i.append(jj)
 
         print(count)
         print(indices[600])
