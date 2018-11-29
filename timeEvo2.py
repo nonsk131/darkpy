@@ -77,8 +77,8 @@ for i in range(600, 601, 1):
         st_i = part_i.index_pointers[st]
     else:
         st_i = st
-    pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.principal_axes_vectors)
-    pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.principal_axes_vectors)
+    pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.host_rotation_tensors[0])
+    pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.host_rotation_tensors[0])
     count, id = compute_dist(pos_pa_i, pos_pa_hal_i)
     jj = hal_i_ind[id]
     for j in jj:
