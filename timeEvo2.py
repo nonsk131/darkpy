@@ -2,9 +2,10 @@ import numpy as np
 import gizmo_analysis as gizmo
 import utilities as ut
 import rockstar_analysis as rockstar
-# import matplotlib
-# matplotlib.use('Agg')
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 import os
 
 file_path = "/mnt/home/npanithanpaisal/darkpy/figs2/"
