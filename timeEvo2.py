@@ -48,7 +48,6 @@ def compute_dist(pos, pos_hal, threshold = 2):
             if np.min(d_star_hal) < threshold:
                 count += 1
                 halo_ind.append(i)
-                print(np.min(d_star_hal))
 
     return count, np.array(halo_ind)
 
@@ -138,19 +137,22 @@ cc = np.column_stack((np.array(range(0,601,1)), c))
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/count.txt', cc)
 
 for i in range(start,601,1):
-    name = 'interacting_snap{}.txt'.format(i)
-    path = os.path.join('/mnt/home/npanithanpaisal/darkpy/halos/', name)
-    np.savetxt(path, np.array(indices[i]))
+    try:
+        name = 'interacting_snap{}.txt'.format(i)
+        path = os.path.join('/mnt/home/npanithanpaisal/darkpy/halos/', name)
+        np.savetxt(path, np.array(indices[i]))
 
-    part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
-                                     assign_host_orbits=True,
-                                     simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
-    if i < 600:
-        # read star index pointer
-        gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
-        st_i = part_i.index_pointers[st]
-    else:
-        st_i = st
-    pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.host_rotation_tensors[0])
-    pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][indices[i]],part_600.host_rotation_tensors[0])
-    make_fig(pos_pa_i, i, pos_pa_hal_i, c[i])
+        part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
+                                         assign_host_orbits=True,
+                                         simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100')
+        if i < 600:
+            # read star index pointer
+            gizmo.track.ParticleIndexPointer.io_pointers(part_i, directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/track/')
+            st_i = part_i.index_pointers[st]
+        else:
+            st_i = st
+        pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.host_rotation_tensors[0])
+        pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][indices[i]],part_600.host_rotation_tensors[0])
+        make_fig(pos_pa_i, i, pos_pa_hal_i, c[i])
+    except:
+        continue
