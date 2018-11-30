@@ -70,7 +70,7 @@ part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_host_prin
 # read in indices of stars in the stream
 st = np.loadtxt('one-stream-ids.txt', dtype=int)
 
-start = 597
+start = 250
 for i in range(start, 601, 1):
     try:
 
