@@ -131,8 +131,8 @@ for i in range(start, 601, 1):
     vel_i = part_i['star']['host.velocity'][st_i]
     vel_hal_i = halt['host.velocity'][hal_i_ind]
     count, id, d, v = compute_dist_vel(pos_pa_i, vel_i, pos_pa_hal_i, vel_hal_i)
-    all_d.append(d)
-    all_v.append(v)
+    all_d.extend(d)
+    all_v.extend(v)
     c[i] = count
     # where in the big merger tree
     jj = hal_i_ind[id]
