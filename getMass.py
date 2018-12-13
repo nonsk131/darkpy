@@ -14,7 +14,8 @@ halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/f
 k = []
 for i in range(590, 601,1):
     hal_ind = np.where(halt['snapshot'] == i)[0]
-    k.append(hal_ind)
+    for j in hal_ind:
+        k.append(j)
 
 k = np.array(k)
 all_m = halt['mass'][k]
