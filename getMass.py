@@ -11,14 +11,13 @@ import rockstar_analysis as rockstar
 halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/',
     rockstar_directory='halo/rockstar_dm_new')
 
-i = []
+k = []
 for i in range(590, 601,1):
     hal_ind = np.where(halt['snapshot'] == i)[0]
-    for j in hal_ind:
-        i.append(j)
+    k.append(hal_ind)
 
-i = np.array(i)
-all_m = halt['mass'][i]
+k = np.array(k)
+all_m = halt['mass'][k]
 
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/all_masses.txt', all_m,
             header='masses of halos in snapshot 590 to 600')
