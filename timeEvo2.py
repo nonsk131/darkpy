@@ -17,10 +17,11 @@ directory = os.path.dirname(file_path)
 if not os.path.exists(directory):
     os.makedirs(directory)
 
-def make_fig(pos_pa, i, pos_pa_hal, count):
+def make_fig(pos_pa, i, pos_pa_hal, pos_pa_hal2, count):
     fig = plt.figure(figsize=(10,8))
     ax = fig.add_subplot(1,1,1)
     ax.scatter(pos_pa[:,0], pos_pa[:,2], s=4, c='black', alpha=0.3)
+    ax.scatter(pos_pa_hal[:,0], pos_pa_hal[:,2], s=50, c='red', alpha=0.2)
     ax.scatter(pos_pa_hal[:,0], pos_pa_hal[:,2], s=50, c='red')
     ax.set_xlim((-80, 80))
     ax.set_ylim((-80, 80))
@@ -95,6 +96,7 @@ masses = []
 all_i = []
 all_d = []
 all_v = []
+s = []
 c = np.zeros(601)
 
 # read in merger tree using the new merger tree
@@ -140,6 +142,7 @@ for i in range(start, 601, 1):
         if j not in all_i:
             masses.append(halt['mass'][j])
             all_i.append(j)
+            s.append(i)
 
     # track the halos in N previous and N after snapshots
     N = 3
@@ -171,7 +174,7 @@ for i in range(start, 601, 1):
         #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
 
 # save id and masses
-id_mass = np.column_stack((np.array(all_i), np.array(masses)))
+id_mass = np.column_stack((np.array(s), np.array(all_i), np.array(masses), np.array(all_d), np.array(all_v)))
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass)
 
 cc = np.column_stack((np.array(range(0,601,1)), c))
@@ -180,7 +183,11 @@ np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/count.txt', cc)
 for i in range(start,601,1):
     name = 'interacting_snap{}.txt'.format(i)
     path = os.path.join('/mnt/home/npanithanpaisal/darkpy/halos/', name)
-    np.savetxt(path, np.array(indices[i]))
+    np.savetxt(path, np.array(interacting[i]))
+
+    name = 'interpolate_snap{}.txt'.format(i)
+    path = os.path.join('/mnt/home/npanithanpaisal/darkpy/halos/', name)
+    np.savetxt(path, np.array(interpolate[i]))
 
     part_i = gizmo.io.Read.read_snapshots(['star'], 'index', i, assign_host_principal_axes=True,
                                      assign_host_orbits=True,
@@ -192,5 +199,6 @@ for i in range(start,601,1):
     else:
         st_i = st
     pos_pa_i = ut.coordinate.get_coordinates_rotated(part_i['star']['host.distance'][st_i],part_600.host_rotation_tensors[0])
-    pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][indices[i]],part_600.host_rotation_tensors[0])
-    make_fig(pos_pa_i, i, pos_pa_hal_i, c[i])
+    pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][interacting[i]],part_600.host_rotation_tensors[0])
+    pos_pa_hal_i2 = ut.coordinate.get_coordinates_rotated(halt['host.distance'][interpolate[i]],part_600.host_rotation_tensors[0])
+    make_fig(pos_pa_i, i, pos_pa_hal_i, pos_pa_hal_i2, c[i])
