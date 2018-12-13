@@ -11,6 +11,13 @@ plt.switch_backend('agg')
 halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/',
     rockstar_directory='halo/rockstar_dm_new')
 
-hal_600_ind = np.where(halt['snapshot'] == 600)[0]
-all_m = halt['mass'][hal_600_ind]
-np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/all_masses.txt', all_m)
+i = []
+for i in range(590, 601,1):
+    hal_ind = np.where(halt['snapshot'] == i)[0]
+    i.append(hal_ind)
+
+i = np.array(i)
+all_m = halt['mass'][i]
+
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/all_masses.txt', all_m
+            header='masses of halos in snapshot 590 to 600')
