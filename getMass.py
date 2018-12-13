@@ -19,5 +19,5 @@ for i in range(590, 601,1):
 i = np.array(i)
 all_m = halt['mass'][i]
 
-np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/all_masses.txt', all_m
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/all_masses.txt', all_m,
             header='masses of halos in snapshot 590 to 600')
