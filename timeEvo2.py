@@ -173,9 +173,9 @@ for i in range(start, 601, 1):
 
         #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
 
-# save id and masses
+# save snapshot, id, masses, min distance, relative velocity
 id_mass = np.column_stack((np.array(s), np.array(all_i), np.array(masses), np.array(all_d), np.array(all_v)))
-np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass)
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass, header='save snapshot, id, masses, min distance, relative velocity')
 
 cc = np.column_stack((np.array(range(0,601,1)), c))
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/count.txt', cc)
