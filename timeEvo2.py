@@ -143,6 +143,7 @@ for i in range(start, 601, 1):
             masses.append(halt['mass'][j])
             all_i.append(j)
             s.append(i)
+    print(len(all_d), len(all_v), len(all_i))
 
     # track the halos in N previous and N after snapshots
     N = 3
@@ -174,6 +175,7 @@ for i in range(start, 601, 1):
         #make_fig(pos_pa_i, i, pos_pa_hal_i[interacting_hal_id], count)
 
 # save id and masses
+print(len(all_i), len(all_d), len(all_v))
 id_mass = np.column_stack((np.array(s), np.array(all_i), np.array(masses), np.array(all_d), np.array(all_v)))
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass)
 
