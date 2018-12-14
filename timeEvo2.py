@@ -21,7 +21,7 @@ def make_fig(pos_pa, i, pos_pa_hal, pos_pa_hal2, count):
     fig = plt.figure(figsize=(10,8))
     ax = fig.add_subplot(1,1,1)
     ax.scatter(pos_pa[:,0], pos_pa[:,2], s=4, c='black', alpha=0.3)
-    ax.scatter(pos_pa_hal[:,0], pos_pa_hal[:,2], s=50, c='red', alpha=0.2)
+    ax.scatter(pos_pa_hal[:,0], pos_pa_hal2[:,2], s=50, c='red', alpha=0.2)
     ax.scatter(pos_pa_hal[:,0], pos_pa_hal[:,2], s=50, c='red')
     ax.set_xlim((-80, 80))
     ax.set_ylim((-80, 80))
