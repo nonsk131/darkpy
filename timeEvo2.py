@@ -140,7 +140,7 @@ c = np.zeros(601)
 
 # read in merger tree using the new merger tree
 halt = rockstar.io.IO.read_tree(simulation_directory='/mnt/ceph/users/firesims/fire2/metaldiff/m12i_res7100/',
-    rockstar_directory='halo/rockstar_dm_new')
+    rockstar_directory='halo/rockstar_dm')
 
 # read in stars (no dark matter) at z = 0, snapshot 600 just to get the principal axis
 part_600 = gizmo.io.Read.read_snapshots(['star'], 'index', 600, assign_host_principal_axes=True,
