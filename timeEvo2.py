@@ -86,6 +86,43 @@ def compute_dist_vel(pos, vel, pos_hal, vel_hal, threshold = 2, N = 10):
         relative = np.array(relative)
         return count, halo_ind, mindist, relative
 
+def compute_dist_vperp(pos, vel, pos_hal, vel_hal, threshold = 2, N = 10):
+        count = 0
+        halo_ind = []
+        mindist = []
+        relative = []
+        for i in range(len(pos_hal)):
+            # throw away those that are clearly too far away
+            if np.absolute(pos_hal[i,0]) > 80 or np.absolute(pos_hal[i,1]) > 80 or np.absolute(pos_hal[i,2]) > 80:
+                continue
+
+            else:
+                # compute distance for all stars in the stream
+                d_hal = np.tile(pos_hal[i], len(pos)).reshape((len(pos),3))
+                d_star = pos
+                d_star_hal = np.sqrt(((d_hal - d_star)**2).sum(axis=1))
+                if np.min(d_star_hal) < threshold:
+                    count += 1
+                    halo_ind.append(i)
+                    mindist.append(np.min(d_star_hal))
+
+                    d_and_v = np.column_stack((d_star_hal, vel))
+                    # sort by first column
+                    d_and_v = d_and_v[d_and_v[:,0].argsort()]
+                    v_star_mean = np.mean(d_and_v[:N,1:], axis=0)
+                    size = np.sqrt((v_star_mean**2).sum())
+                    unit_vec = v_star_mean/size
+
+                    v_hal = vel_hal[i]
+                    v_rel = np.sqrt(((v_hal - np.dot(v_hal, unit_vec)*unit_vec)**2).sum())
+                    relative.append(v_rel)
+
+        halo_ind = np.array(halo_ind)
+        mindist = np.array(mindist)
+        relative = np.array(relative)
+        return count, halo_ind, mindist, relative
+
+
 
 #-------------------------------------------------------------------------------
 # store indices of interacting halos in each snapshot
@@ -130,7 +167,7 @@ for i in range(start, 601, 1):
     pos_pa_hal_i = ut.coordinate.get_coordinates_rotated(halt['host.distance'][hal_i_ind],part_600.host_rotation_tensors[0])
     vel_i = part_i['star']['host.velocity'][st_i]
     vel_hal_i = halt['host.velocity'][hal_i_ind]
-    count, id, d, v = compute_dist_vel(pos_pa_i, vel_i, pos_pa_hal_i, vel_hal_i)
+    count, id, d, v = compute_dist_vperp(pos_pa_i, vel_i, pos_pa_hal_i, vel_hal_i)
     all_d.extend(d)
     all_v.extend(v)
     c[i] = count
@@ -175,7 +212,7 @@ for i in range(start, 601, 1):
 
 # save snapshot, id, masses, min distance, relative velocity
 id_mass = np.column_stack((np.array(s), np.array(all_i), np.array(masses), np.array(all_d), np.array(all_v)))
-np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass.txt', id_mass, header='save snapshot, id, masses, min distance, relative velocity')
+np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/id_mass_perp.txt', id_mass, header='save snapshot, id, masses, min distance, relative velocity')
 
 cc = np.column_stack((np.array(range(0,601,1)), c))
 np.savetxt('/mnt/home/npanithanpaisal/darkpy/halos/count.txt', cc)
